@@ -14,7 +14,7 @@ jobs:
         uses: popovoleksandr/ipfs-pinata-deploy-action@v1.6.4
         with:
           pin-name: 'Decentralized website'
-          path: './build'
+          path: './build/index.html'
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_API_KEY }}
           verbose: true
