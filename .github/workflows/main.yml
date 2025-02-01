@@ -11,13 +11,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Check build directory
-      run: |
-        if [ ! -d "build" ]; then
-          echo "Build directory does not exist."
-          exit 1
-        fi
-
     - name: Deploy to IPFS via Pinata
       uses: anantaramdas/ipfs-pinata-deploy-action@v1.6.3
       with:
