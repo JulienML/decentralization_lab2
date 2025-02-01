@@ -4,24 +4,26 @@ on:
   push:
     branches:
       - master
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: IPFS Pinata deploy GitHub action
-        id: deploy
-        uses: anantaramdas/ipfs-pinata-deploy-action@v1.6.3
-        with:
-          pin-name: 'Decentralized website'
-          pinata-api-key: ${{ secrets.PINATA_API_KEY }}
-          pinata-secret-api-key: ${{ secrets.PINATA_SECRET_API_KEY }}
-          verbose: true
-          remove-old: true
-      
-      - name: Get the output hash
-        run: echo "The hash was ${{ steps.deploy.outputs.hash }}"
-      
-      # - name: Print IPFS URL
-      #   run: echo "Server running on: https://ipfs.io/ipfs/${{ steps.deploy.outputs.hash }}"
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Check build directory
+      run: |
+        if [ ! -d "build" ]; then
+          echo "Build directory does not exist."
+          exit 1
+        fi
+
+    - name: Deploy to IPFS via Pinata
+      uses: anantaramdas/ipfs-pinata-deploy-action@v1.6.3
+      with:
+        pin-name: Decentralized website
+        path: './build'
+        pinata-api-key: ${{ secrets.PINATA_API_KEY }}
+        pinata-secret-api-key: ${{ secrets.PINATA_SECRET_API_KEY }}
+        verbose: true
+        remove-old: true
