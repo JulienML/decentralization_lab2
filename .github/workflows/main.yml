@@ -20,8 +20,9 @@ jobs:
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_API_KEY }}
           verbose: true
           remove-old: true
-        outputs:
-          hash: ${{ steps.deploy.outputs.hash }}
+      
+      - name: Get the output hash
+        run: echo "The hash was ${{ steps.deploy.outputs.hash }}"
       
       - name: Print IPFS URL
         run: echo "Server running on: https://ipfs.io/ipfs/${{ steps.deploy.outputs.hash }}"
